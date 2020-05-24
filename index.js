@@ -33,7 +33,7 @@ function logStartUpDetailsToConsole() {
         }
     });
 
-    console.info(`\nServer is listening on port ${port}.`);
+    console.info(`\nServer is available at http://localhost:${port}`);
     console.info("Available routes are:\n");
     console.table(routes);
 }
