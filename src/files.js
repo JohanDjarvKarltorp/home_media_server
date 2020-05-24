@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-var crypto = require('crypto');
+const crypto = require('crypto');
 const names = require('./team-names.json');
 
 let videos = getAllVideos();
