@@ -3,6 +3,12 @@
     "version": "1.0.0",
     "description": "Simple home media server",
     "main": "index.js",
+    "scripts": {
+        "test": "./eslint/run.sh",
+        "lint-hook": "./eslint/auto_lint.sh",
+        "lint": "./node_modules/.bin/eslint ./",
+        "lint-fix": "./node_modules/.bin/eslint --fix ./"
+    },
     "dependencies": {
         "ejs": "^3.0.1",
         "express": "^4.17.1",
@@ -11,12 +17,6 @@
     "devDependencies": {
         "eslint": "^6.8.0",
         "pre-commit": "^1.2.2"
-    },
-    "scripts": {
-        "test": "./eslint/run.sh",
-        "lint-hook": "./eslint/auto_lint.sh",
-        "lint": "./node_modules/.bin/eslint ./",
-        "lint-fix": "./node_modules/.bin/eslint --fix ./"
     },
     "precommit.silent": false,
     "precommit.colors": true,
