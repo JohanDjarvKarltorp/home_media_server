@@ -2,9 +2,9 @@
 const express = require('express');
 const fs = require('fs');
 const router = express.Router();
-const files = require('../src/files.js');
+const files = require('../src/files');
+const ffmpeg = require('../src/ffmpeg');
 let data;
-
 
 
 router.get('/', async (req, res) => {
@@ -19,11 +19,10 @@ router.get('/', async (req, res) => {
 router.get('/watch', (req, res) => {
     let id = req.query['v'];
     let file = files.get(id);
-    const path = `/home/talos/Videos/NHL/${file.filename}`;
+    let path = `/home/talos/Videos/NHL/${file.filename}`;
     const stat = fs.statSync(path);
     const range = req.headers.range;
     const fileSize = stat.size;
-    // eslint-disable-next-line no-magic-numbers
     const belowFileSize = fileSize-1;
     const httpOK = 200;
     const httpRangeNotSatisfiable = 416;
@@ -43,9 +42,7 @@ router.get('/watch', (req, res) => {
             return;
         }
 
-        // eslint-disable-next-line no-magic-numbers
         const chunkSize = (end-start)+1;
-        const file = fs.createReadStream(path, {start, end});
         const head = {
             'Content-Range': `bytes ${start}-${end}/${fileSize}`,
             'Accept-Ranges': 'bytes',
@@ -54,7 +51,6 @@ router.get('/watch', (req, res) => {
         };
 
         res.writeHead(httpPartialContent, head);
-        file.pipe(res);
     } else {
         const head = {
             'Content-Length': fileSize,
@@ -62,8 +58,9 @@ router.get('/watch', (req, res) => {
         };
 
         res.writeHead(httpOK, head);
-        fs.createReadStream(path).pipe(res);
     }
+
+    ffmpeg.convert(path, res);
 });
 
 module.exports = router;
