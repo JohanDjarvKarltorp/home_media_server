@@ -62,7 +62,6 @@
         "require-await": "error",
         "global-require": "error",
         "handle-callback-err": "error",
-        "no-magic-numbers": "error",
         "no-param-reassign": "error",
         "eqeqeq": [
             "error",
