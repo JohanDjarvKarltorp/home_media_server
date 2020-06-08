@@ -1,22 +1,57 @@
 <%- include("header", {title: title}); %>
 
 <body>
-<% for (const row of res) { %>
-	<div class="match">
-		<a href="watch?v=<%= row.id %>">
-			<img src="/images/team-logos/<%= row.teams.home.abbr%>.svg" alt="home"/>
-			<img src="/images/team-logos/<%= row.teams.away.abbr%>.svg" alt="away"/>
-			<h1><%= row.teams.home.name %> - <%= row.teams.away.name %></h1>
+<nav>
+	<div class="nav-wrapper teal darken-3">
+		<form>
+			<div class="input-field">
+				<input id="search" type="search" required>
+				<label class="label-icon" for="search"><i class="material-icons">search</i></label>
+				<i class="material-icons">close</i>
+			</div>
+		</form>
+	</div>
+</nav>
 
-			<div class="overlay">
-				<h2><%= row.date %></h2>
-				<h2><%= row.teams.home.abbr %> - <%= row.teams.away.abbr %></h2>
+<div class="row">
+	<div class="col s12">
+		<a href="#!" class="breadcrumb black-text">First</a>
+		<a href="#!" class="breadcrumb black-text">Second</a>
+		<a href="#!" class="breadcrumb black-text">Third</a>
+	</div>
+</div>
+
+<div class="row">
+<% for (const row of res) { %>
+	<div class="col s6 m4">
+		<a href="watch?v=<%= row.id %>">
+			<div class="card hoverable">
+				<div class="card-image">
+					<div class="col s6">
+						<div class="section">
+							<img src="/images/team-logos/<%= row.teams.home.abbr%>.svg" alt="home"/>
+						</div>
+					</div>
+					<div class="col s6">
+						<div class="section">
+							<img src="/images/team-logos/<%= row.teams.away.abbr%>.svg" alt="away"/>
+						</div>
+					</div>
+				</div>
+				<div class="card-content">
+					<span class="card-title black-text"><%= row.teams.home.abbr %> - <%= row.teams.away.abbr%></span>
+					<div class="divider"></div>
+
+					<p class="black-text"><%= row.teams.home.name %> - <%= row.teams.away.name %><br><%= row.date %></p>
+				</div>
 			</div>
 		</a>
 	</div>
 <% } %>
+</div>
 
 
-	<%- include("footer"); %>
+
+<%- include("footer"); %>
 </body>
 
