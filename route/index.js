@@ -27,8 +27,6 @@ router.get('/NHL', async (req, res) => {
 router.get('/watch', (req, res) => {
     let id = req.query['v'];
     let file = files.get(id);
-
-    console.log(id);
     let path = `/home/talos/Videos/NHL/${file.filename}`;
     const stat = fs.statSync(path);
     const range = req.headers.range;
