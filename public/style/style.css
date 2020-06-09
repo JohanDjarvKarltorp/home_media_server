@@ -1,5 +1,15 @@
+#nhlPage {
+    overflow-y: scroll;
+}
+
 .breadcrumb:before {
     position: relative !important;
     top: -5px !important;
     color: black !important;
+}
+
+.row .col.m0 {
+    width: 0;
+    height: 0 !important;
+    padding: 0;
 }

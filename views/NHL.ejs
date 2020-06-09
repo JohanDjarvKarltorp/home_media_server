@@ -1,10 +1,10 @@
 <%- include("header", {title: title}); %>
 
-<body>
+<body id="nhlPage">
 <nav>
 	<div class="nav-wrapper teal darken-3">
 		<div class="input-field">
-			<input id="search" type="search">
+			<input id="search" type="search" autocomplete="off">
 			<label class="label-icon" for="search"><i class="material-icons">search</i></label>
 			<i class="material-icons">close</i>
 		</div>
@@ -12,17 +12,18 @@
 </nav>
 
 <div class="row">
+	<br>
 	<div class="col s12">
 		<a href="/" class="breadcrumb black-text">Home</a>
 		<a href="/NHL" class="breadcrumb black-text">NHL</a>
 	</div>
 </div>
 
-<div class="row">
+<div class="row grid">
 <% for (const row of res) { %>
 	<div class="col s6 m4">
 		<a href="watch?v=<%= row.id %>">
-			<div class="card hoverable">
+			<div class="card hoverable scale-transition">
 				<div class="card-image">
 					<div class="col s6">
 						<div class="section">
