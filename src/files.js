@@ -35,7 +35,7 @@ function getAllVideos() {
         let end = 11;
         let teams = file.match(ThreeCapitalLetters);
 
-        temp.id = crypto.createHash('SHA1', ).update(file).digest('base64');
+        temp.id = crypto.createHash('SHA1', ).update(file).digest('hex');
         temp.id = temp.id.slice(start, end);
         temp.filename = file;
         temp.date = file.split('_')[singleSplit];
