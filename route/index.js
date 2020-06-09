@@ -7,18 +7,28 @@ const ffmpeg = require('../src/ffmpeg');
 let data;
 
 
-router.get('/', async (req, res) => {
+router.get('/', (req, res) => {
     data = {
         title: 'Home media server'
     };
 
-    data.res = await files.all();
     res.render('index', data);
+});
+
+router.get('/NHL', async (req, res) => {
+    data = {
+        title: 'Home media server | NHL'
+    };
+
+    data.res = await files.all();
+    res.render('NHL', data);
 });
 
 router.get('/watch', (req, res) => {
     let id = req.query['v'];
     let file = files.get(id);
+
+    console.log(id);
     let path = `/home/talos/Videos/NHL/${file.filename}`;
     const stat = fs.statSync(path);
     const range = req.headers.range;
