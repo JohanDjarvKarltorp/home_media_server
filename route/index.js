@@ -2,7 +2,7 @@
 const express = require('express');
 const fs = require('fs');
 const router = express.Router();
-const files = require('../src/files');
+const nhl = require('../src/nhl');
 const ffmpeg = require('../src/ffmpeg');
 let data;
 
@@ -15,18 +15,27 @@ router.get('/', (req, res) => {
     res.render('index', data);
 });
 
+router.get('/Felicia', async (req, res) => {
+    data = {
+        title: 'Home media server | Felicia'
+    };
+
+    data.res = await nhl.all();
+    res.render('NHL', data);
+});
+
 router.get('/NHL', async (req, res) => {
     data = {
         title: 'Home media server | NHL'
     };
 
-    data.res = await files.all();
+    data.res = await nhl.all();
     res.render('NHL', data);
 });
 
 router.get('/watch', (req, res) => {
     let id = req.query['v'];
-    let file = files.get(id);
+    let file = nhl.get(id);
     let path = `/home/talos/Videos/NHL/${file.filename}`;
     const stat = fs.statSync(path);
     const range = req.headers.range;

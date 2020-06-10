@@ -5,14 +5,12 @@ const names = require('./team-names.json');
 
 let videos = getAllVideos();
 
-/*videos = videos.concat(getAllVideos()); */
-
-const files = {
+const nhl = {
     all: () => videos,
     get: (id) => videos.find(element => element.id === id),
 };
 
-module.exports = files;
+module.exports = nhl;
 
 
 function getAllVideos() {
