@@ -27,26 +27,27 @@ router.get('/NHL', async (req, res) => {
     res.render('NHL', data);
 });
 
-router.get('/:root/:directory?', async (req, res) => {
+router.get('/:root', async (req, res) => {
     let root = req.params.root;
-    let directory = req.params.directory === undefined ? "" : req.params.directory;
+    let directory = req.query.d === undefined ? [] : req.query.d.split(",");
 
     data = {
-        title: `Home media server | ${root} | ${directory} `,
+        title: `Home media server | ${root} | ${directory.join(" | ")} `,
         path: {
             root: root,
-            directories: directory === "" ? [] : [directory],
-            fullPath: path.join(root, encodeURIComponent(directory)),
+            directories: directory,
         }
     };
 
-    data.res = await files.all(path.join(config[root].root, directory));
+    let directoryPath = path.join(...directory);
+
+    data.res = await files.all(path.join(config[root].root, directoryPath));
 
     res.render('index', data);
 });
 
 router.get('/watch', (req, res) => {
-    let id = req.query['v'];
+    let id = req.query.v;
     let file = nhl.get(id);
     let path = path.join(config.NHL.root, file.filename);
     const stat = fs.statSync(path);

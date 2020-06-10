@@ -6,8 +6,14 @@
     <div class="col s12">
         <a href="/" class="breadcrumb black-text">Home</a>
         <a href="/<%= path.root %>" class="breadcrumb black-text"><%= path.root %></a>
-        <% for (const row of path.directories) { %>
-            <a href="/<%= path.root %>/<%= row %>" class="breadcrumb black-text"><%= row %></a>
+        <% for (const row of path.directories) {
+            let directories = "";
+            let index = path.directories.indexOf(row);
+            if (index > 0) {
+                directories = encodeURIComponent(path.directories.slice(0, index).toString()) + ",";
+            }
+        %>
+            <a href="/<%= path.root %>?d=<%=`${directories}${encodeURIComponent(row)}`  %>" class="breadcrumb black-text"><%= row %></a>
         <% } %>
 
     </div>
@@ -16,8 +22,9 @@
     <div class="collection">
         <% for (const row of res) { %>
             <% if (row.type === 'directory') {
+                let directoryPath = path.directories.length > 0 ? encodeURIComponent(path.directories.toString()) + "," : "";
             %>
-                <a href="/<%= `${path.fullPath}/${encodeURIComponent(row.name)}` %>" class="collection-item"><%= row.name %></a>
+                <a href="/<%= `${path.root}?d=${directoryPath}${encodeURIComponent(row.name)}` %>" class="collection-item"><%= row.name %></a>
             <% } else { %>
                     <a href="/#" class="collection-item avatar"><%= row.name %></a>
             <% } %>
