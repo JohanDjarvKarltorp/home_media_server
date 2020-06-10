@@ -1,8 +1,11 @@
 'use strict';
 const express = require('express');
 const fs = require('fs');
+const path = require('path');
 const router = express.Router();
+const config = require('../config/media_server');
 const nhl = require('../src/nhl');
+const files = require('../src/files');
 const ffmpeg = require('../src/ffmpeg');
 let data;
 
@@ -12,16 +15,7 @@ router.get('/', (req, res) => {
         title: 'Home media server'
     };
 
-    res.render('index', data);
-});
-
-router.get('/Felicia', async (req, res) => {
-    data = {
-        title: 'Home media server | Felicia'
-    };
-
-    data.res = await nhl.all();
-    res.render('NHL', data);
+    res.render('home', data);
 });
 
 router.get('/NHL', async (req, res) => {
@@ -33,10 +27,28 @@ router.get('/NHL', async (req, res) => {
     res.render('NHL', data);
 });
 
+router.get('/:root/:directory?', async (req, res) => {
+    let root = req.params.root;
+    let directory = req.params.directory === undefined ? "" : req.params.directory;
+
+    data = {
+        title: `Home media server | ${root} | ${directory} `,
+        path: {
+            root: root,
+            directories: directory === "" ? [] : [directory],
+            fullPath: path.join(root, encodeURIComponent(directory)),
+        }
+    };
+
+    data.res = await files.all(path.join(config[root].root, directory));
+
+    res.render('index', data);
+});
+
 router.get('/watch', (req, res) => {
     let id = req.query['v'];
     let file = nhl.get(id);
-    let path = `/home/talos/Videos/NHL/${file.filename}`;
+    let path = path.join(config.NHL.root, file.filename);
     const stat = fs.statSync(path);
     const range = req.headers.range;
     const fileSize = stat.size;

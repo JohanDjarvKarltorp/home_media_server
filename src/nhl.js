@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const config = require('../config/media_server');
 const names = require('./team-names.json');
 
 let videos = getAllVideos();
@@ -15,13 +16,11 @@ module.exports = nhl;
 
 function getAllVideos() {
     let result = [];
-    const videoPath = '/home/talos/Videos/NHL/';
     const extension = '.mkv';
 
-    let fileNames = fs.readdirSync(videoPath)
-        .filter(function(element) {
-            return path.extname(element) === extension;
-        });
+    let fileNames = fs.readdirSync(config.NHL.root).filter(function(element) {
+        return path.extname(element) === extension;
+    });
 
     fileNames.forEach(file => {
         let temp = {};

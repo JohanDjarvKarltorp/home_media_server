@@ -1,0 +1,31 @@
+<%- include("header", {title: title}); %>
+
+<body>
+<div class="row">
+    <br>
+    <div class="col s12">
+        <a href="/" class="breadcrumb black-text">Home</a>
+        <a href="/<%= path.root %>" class="breadcrumb black-text"><%= path.root %></a>
+        <% for (const row of path.directories) { %>
+            <a href="/<%= path.root %>/<%= row %>" class="breadcrumb black-text"><%= row %></a>
+        <% } %>
+
+    </div>
+</div>
+<div class="container">
+    <div class="collection">
+        <% for (const row of res) { %>
+            <% if (row.type === 'directory') {
+            %>
+                <a href="/<%= `${path.fullPath}/${encodeURIComponent(row.name)}` %>" class="collection-item"><%= row.name %></a>
+            <% } else { %>
+                    <a href="/#" class="collection-item avatar"><%= row.name %></a>
+            <% } %>
+        <% } %>
+    </div>
+</div>
+
+
+<%- include("footer"); %>
+</body>
+

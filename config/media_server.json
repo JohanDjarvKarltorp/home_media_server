@@ -1,6 +1,11 @@
 {
-    "host": "localhost",
-    "user": "user",
-    "password": "pass",
-    "database": "media_server"
+    "Felicia": {
+        "root": "/run/user/1000/gvfs/smb-share:server=vega,share=felicia"
+    },
+    "Nathalie": {
+        "root": "/run/user/1000/gvfs/smb-share:server=vega,share=nathalie"
+    },
+    "NHL": {
+        "root": "/home/talos/Videos/NHL"
+    }
 }
