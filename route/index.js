@@ -9,7 +9,6 @@ const files = require('../src/files');
 const ffmpeg = require('../src/ffmpeg');
 let data;
 
-
 router.get('/', (req, res) => {
     data = {
         title: 'Home media server'
@@ -39,9 +38,10 @@ router.get('/:root', async (req, res) => {
         }
     };
 
-    let directoryPath = path.join(...directory);
+    let fullPath = path.join(config[root].root, path.join(...directory));
 
-    data.res = await files.all(path.join(config[root].root, directoryPath));
+    req.app.use('/static', express.static(fullPath));
+    data.res = await files.all(fullPath);
 
     res.render('index', data);
 });
