@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById('search').addEventListener('keyup', searchMatch);
+    document.getElementById('search').addEventListener('keyup', searchCard);
 });
 
-let searchMatch = (event) => {
+let searchCard = (event) => {
     let input = document.getElementById('search');
     let filter = input.value.toUpperCase();
     let collection = document.getElementsByClassName('card-content');
@@ -20,21 +20,32 @@ let searchMatch = (event) => {
             for (let i = 0; i < collection.length; i++) {
                 let text = collection[i].textContent || collection[i].innerText;
                 let parentElement = collection[i].parentElement;
-                let container = parentElement.parentElement.parentElement;
+                let container = parentElement.closest(".col");
+
+                if (searchCard.oldClassList === undefined) {
+                    console.log(container.classList);
+                    searchCard.oldClassList = Array.from(container.classList);
+                }
 
                 if (text.toUpperCase().indexOf(filter) > -1) {
+                    let small = searchCard.oldClassList.find(e => /s\d\d?/.test(e));
+                    let medium = searchCard.oldClassList.find(e => /m\d\d?/.test(e));
+
                     container.classList.remove("m0");
-                    container.classList.add("m4");
-                    container.classList.add("s6");
+                    container.classList.add(small);
+                    container.classList.add(medium);
 
                     parentElement.classList.add("scale-in");
                 } else {
+                    let small = searchCard.oldClassList.find(e => /s\d\d?/.test(e));
+                    let medium = searchCard.oldClassList.find(e => /m\d\d?/.test(e));
+
                     parentElement.classList.remove("scale-in");
                     parentElement.classList.add("scale-out");
 
                     container.style.transition = "all 0.3s cubic-bezier(0.53, 0.36, 0.01, 0.53)";
-                    container.classList.remove("m4");
-                    container.classList.remove("s6");
+                    container.classList.remove(small);
+                    container.classList.remove(medium);
                     container.classList.add("m0");
                 }
             }
