@@ -7,5 +7,5 @@
     },
     "Nathalie": {
         "root": "/run/user/1000/gvfs/smb-share:server=vega,share=nathalie"
-    },
+    }
 }
