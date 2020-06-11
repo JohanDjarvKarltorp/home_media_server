@@ -1,11 +1,11 @@
 {
+    "NHL": {
+        "root": "/home/talos/Videos/NHL"
+    },
     "Felicia": {
         "root": "/run/user/1000/gvfs/smb-share:server=vega,share=felicia"
     },
     "Nathalie": {
         "root": "/run/user/1000/gvfs/smb-share:server=vega,share=nathalie"
     },
-    "NHL": {
-        "root": "/home/talos/Videos/NHL"
-    }
 }
