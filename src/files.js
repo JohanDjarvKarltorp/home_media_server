@@ -23,7 +23,12 @@ const files = {
                 all[i].type = 'directory';
                 directories.push(all[i]);
             } else if (stats.isFile()) {
-                all[i].type = 'file';
+                if (getImage(all[i].name)) {
+                    all[i].type = 'image';
+                } else {
+                    all[i].type = 'file';
+                }
+
                 files.push(all[i]);
             }
         }
@@ -35,8 +40,15 @@ const files = {
 module.exports = files;
 
 
+const getImage = (element) => {
+    let extensions = [".png", ".jpeg", ".jpg", ".gif", ".svg"];
+
+    return extensions.includes(path.extname(element).toLowerCase());
+};
+
+
 const convertBytes = (bytes) => {
-    const sizes = ["Bytes", "KB", "MB", "GB", "TB"]
+    const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
 
     if (bytes === 0) {
         return "n/a";
