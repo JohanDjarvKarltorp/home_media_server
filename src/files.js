@@ -3,29 +3,50 @@ const path = require('path');
 
 const files = {
     all: async (root) => {
-        let files = await fs.readdir(root);
+        let all = await fs.readdir(root);
+        let directories = [];
+        let files = [];
 
-        files = files.filter(item => !(/(^|\/)\.[^/.]/g).test(item));
+        all = all.filter(item => !(/(^|\/)\.[^/.]/g).test(item));
 
-        for (let i = 0; i < files.length; i++) {
-            let stats = await fs.stat(path.join(root, files[i]));
+        for (let i = 0; i < all.length; i++) {
+            let stats = await fs.stat(path.join(root, all[i]));
 
-            files[i] = {
-                name: files[i],
-                accessed: stats.atime,
+            all[i] = {
+                name: all[i],
+                size: convertBytes(stats.size),
                 modified: stats.mtime,
                 created: stats.birthtime
             };
 
             if (stats.isDirectory()) {
-                files[i].type = 'directory';
+                all[i].type = 'directory';
+                directories.push(all[i]);
             } else if (stats.isFile()) {
-                files[i].type = 'file';
+                all[i].type = 'file';
+                files.push(all[i]);
             }
         }
 
-        return files;
+        return {directories: directories, files: files};
     },
 };
 
 module.exports = files;
+
+
+const convertBytes = (bytes) => {
+    const sizes = ["Bytes", "KB", "MB", "GB", "TB"]
+
+    if (bytes === 0) {
+        return "n/a";
+    }
+
+    const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+
+    if (i === 0) {
+        return bytes + " " + sizes[i];
+    }
+
+    return (bytes / Math.pow(1024, i)).toFixed(1) + " " + sizes[i];
+};
