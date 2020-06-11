@@ -1,6 +1,15 @@
 <%- include("header", {title: title}); %>
 
 <body>
+<nav>
+    <div class="nav-wrapper teal darken-3">
+        <div class="input-field">
+            <input id="search" type="search" autocomplete="off">
+            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+            <i class="material-icons">close</i>
+        </div>
+    </div>
+</nav>
 <div class="row">
     <br>
     <div class="col s12">
@@ -36,7 +45,7 @@
         if (row.type === "image") {
     %>
         <div class="col s12 m2">
-            <div class="card small hoverable">
+            <div class="card small hoverable scale-transition">
                 <div class="container-image">
                     <div class="card-image">
                         <img class="materialboxed" data-caption="<%= row.name %>" src="static/<%= row.name %>">
@@ -74,4 +83,5 @@
 <%- include("footer"); %>
 </body>
 <script src="/script/index.js"></script>
+<script src="/script/search.js"></script>
 
