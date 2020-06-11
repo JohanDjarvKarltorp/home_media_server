@@ -8,6 +8,14 @@
     color: black !important;
 }
 
+.container-image {
+    height: 180px;
+}
+
+.card-image {
+    max-height: 100% !important;
+}
+
 .row .col.m0 {
     width: 0;
     height: 0 !important;

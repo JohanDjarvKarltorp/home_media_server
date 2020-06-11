@@ -28,22 +28,26 @@
     </div>
 </div>
 <div class="row">
-    <% for (const row of res.files) { %>
-        <div class="col s12 m4">
-            <div class="card">
-                <div class="card-image">
-                    <img class="materialboxed" src="static/<%= row.name %>">
+    <% for (const row of res.files) {
+        if (row.type === "image") {
+    %>
+        <div class="col s12 m2">
+            <div class="card small hoverable">
+                <div class="container-image">
+                    <div class="card-image">
+                        <img class="materialboxed" data-caption="<%= row.name %>" src="static/<%= row.name %>">
+                    </div>
                 </div>
                 <div class="card-content">
                     <p class="truncate"><%= row.name%></p>
                     <p class="truncate">Size: <%= row.size %></p>
                     <p class="truncate">Modified: <%= row.modified.toLocaleDateString() %></p>
                 </div>
-                <div class="card-action">
-                    <a href="#">This is a link</a>
-                </div>
             </div>
         </div>
+        <% } else { %>
+            <p><%= row.name%></p>
+        <% } %>
     <% } %>
 </div>
 
