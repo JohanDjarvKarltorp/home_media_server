@@ -5,6 +5,8 @@ const files = {
     all: async (root) => {
         let files = await fs.readdir(root);
 
+        files = files.filter(item => !(/(^|\/)\.[^/.]/g).test(item));
+
         for (let i = 0; i < files.length; i++) {
             let stats = await fs.stat(path.join(root, files[i]));
 
