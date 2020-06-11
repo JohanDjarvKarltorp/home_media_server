@@ -25,10 +25,14 @@
         %>
             <a href="/<%= `${path.root}?d=${directoryPath}${encodeURIComponent(row.name)}` %>" class="collection-item"><%= row.name %></a>
         <% }%>
+
+        <% for (const row of res.files) { %>
+            <a href="static/<%= row.name %>" download class="collection-item light-blue-text "><%= row.name %></a>
+        <% }%>
     </div>
 </div>
 <div class="row">
-    <% for (const row of res.files) {
+    <% for (const row of res.media) {
         if (row.type === "image") {
     %>
         <div class="col s12 m2">
@@ -45,8 +49,23 @@
                 </div>
             </div>
         </div>
-        <% } else { %>
-            <p><%= row.name%></p>
+        <% } else if (row.type === "video") { %>
+            <div class="col s12 m2">
+                <div class="card small hoverable">
+                    <div class="container-image">
+                        <div class="card-image">
+                            <video class="responsive-video" controls>
+                                <source src="static/<%= row.name %>" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p class="truncate"><%= row.name%></p>
+                        <p class="truncate">Size: <%= row.size %></p>
+                        <p class="truncate">Modified: <%= row.modified.toLocaleDateString() %></p>
+                    </div>
+                </div>
+            </div>
         <% } %>
     <% } %>
 </div>

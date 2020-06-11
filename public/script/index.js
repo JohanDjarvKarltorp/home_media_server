@@ -1,6 +1,5 @@
 /* global M */
 
-
 document.addEventListener('DOMContentLoaded', () => {
     let elements = document.querySelectorAll('.materialboxed');
     let listener;
