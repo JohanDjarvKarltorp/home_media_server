@@ -2,10 +2,24 @@
     overflow-y: scroll;
 }
 
+a, a:active, a:focus {
+    outline: none;
+}
+
+#breadcrumb-root {
+    top: -5px;
+}
+
 .breadcrumb:before {
     position: relative !important;
     top: -5px !important;
     color: black !important;
+}
+
+.collection-item i {
+    line-height: 1.5;
+    margin-right: 1rem;
+    vertical-align: middle;
 }
 
 .container-image {
