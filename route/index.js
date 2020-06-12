@@ -29,13 +29,15 @@ router.get('/NHL', async (req, res) => {
 router.get('/:root', async (req, res) => {
     let root = req.params.root;
     let directory = req.query.d === undefined ? [] : req.query.d.split(",");
+    let page = req.query.p === undefined ? 1 : req.query.p;
 
     data = {
         title: `Home media server | ${root} | ${directory.join(" | ")} `,
         path: {
             root: root,
             directories: directory,
-        }
+        },
+        page: page
     };
 
     let fullPath = path.join(config[root].root, path.join(...directory));

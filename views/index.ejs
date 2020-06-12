@@ -41,7 +41,11 @@
     </div>
 </div>
 <div class="row">
-    <% for (const row of res.media) {
+    <%
+    let start = (page-1) * 24;
+    let media = res.media.slice(start, start + 24);
+
+    for (const row of media) {
         if (row.type === "image") {
     %>
         <div class="col s12 m2">
@@ -78,6 +82,32 @@
         <% } %>
     <% } %>
 </div>
+
+<ul class="pagination center">
+    <% page = parseInt(page);
+    
+    if (page === 1) { %>
+        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+    <% } else { %>
+        <li class="waves-effect"><a href="<%= `${path.root}?d=${encodeURIComponent(path.directories.toString())}&p=${page - 1}`%>"><i class="material-icons">chevron_left</i></a></li>
+    <% } %>
+
+    <% for (var i = 0; i < res.media.length / 24; i++) {
+        let fullPath = `${path.root}?d=${encodeURIComponent(path.directories.toString())}&p=${i + 1}`;
+
+        if (page == i + 1) { %>
+            <li class="active teal"><a href="<%= fullPath %>"><%= i + 1 %></a></li>
+       <% } else { %>
+            <li class="waves-effect"><a href="<%= fullPath %>"><%= i + 1 %></a></li>
+        <% } %>
+    <% } %>
+
+    <% if (page >= res.media.length / 24) { %>
+            <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+    <% } else { %>
+            <li class="waves-effect"><a href="<%= `${path.root}?d=${encodeURIComponent(path.directories.toString())}&p=${page + 1}`%>"><i class="material-icons">chevron_right</i></a></li>
+    <% } %>
+</ul>
 
 
 <%- include("footer"); %>
