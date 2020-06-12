@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let elements = document.querySelectorAll('.materialboxed');
     let listener;
     let options = {
+        onOpenStart: (target) => {
+            target.closest(".card").style.zIndex = "1";
+        },
         onOpenEnd: (target) => {
             let index = Array.prototype.indexOf.call(elements, target);
 
@@ -13,6 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         onCloseStart: () => {
             document.removeEventListener('keyup', listener);
+        },
+        onCloseEnd: (target) => {
+            target.closest(".card").style.zIndex = "0";
         }
     };
 
