@@ -1,6 +1,18 @@
 /* global M */
 
 document.addEventListener('DOMContentLoaded', () => {
+    initCollapsible();
+    initMaterialbox();
+});
+
+
+let initCollapsible = () => {
+    let elements = document.querySelectorAll('.collapsible');
+
+    M.Collapsible.init(elements);
+};
+
+let initMaterialbox = () => {
     let elements = document.querySelectorAll('.materialboxed');
     let listener;
     let options = {
@@ -23,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     M.Materialbox.init(elements, options);
-});
+};
 
 
 let navigation = (target, index, elements, event) => {
