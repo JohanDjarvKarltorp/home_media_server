@@ -23,7 +23,6 @@ let searchCard = (event) => {
                 let container = parentElement.closest(".col");
 
                 if (searchCard.oldClassList === undefined) {
-                    console.log(container.classList);
                     searchCard.oldClassList = Array.from(container.classList);
                 }
 
