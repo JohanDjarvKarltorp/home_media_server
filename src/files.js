@@ -33,6 +33,7 @@ const files = {
                     videos.push(all[i]);
                 } else {
                     all[i].type = 'file';
+                    all[i].icon = getFileIcon(all[i].name);
                     files.push(all[i]);
                 }
             }
@@ -55,6 +56,36 @@ const isVideo = (file) => {
     let extensions = [".mp4", ".mov"];
 
     return extensions.includes(path.extname(file).toLowerCase());
+};
+
+const getFileIcon = (file) => {
+    let extensions = {
+        archive: [".7z", ".arj", ".deb", ".pkg", ".rar", ".rpm", ".tar.gz", ".tgz", ".tar", ".z",
+            ".zip"],
+
+        excel: [".ods", ".xls", ".xlsm", ".xlsx", ".csv"],
+
+        word: [".docx", ".doc"],
+
+        pdf: [".pdf"],
+
+        text: [".odt", ".rtf", ".tex", ".txt", ".wpd"],
+
+        powerpoint: [".key", ".odp", ".pps", ".ppt", ".pptx"],
+
+        audio: [".aif", ".cda", ".mid", ".midi", ".mp3", ".mpa", ".ogg", ".wav", ".wma", ".wpl"],
+
+        code: [".html", ".xhtml", ".css", ".js", ".json", ".py", ".c", ".cpp", ".class", ".cs",
+            ".h", ".java", ".ph", ".sh", ".swift", ".vb", ".php", ".apk", ".bat", ".bin", ".exe",
+            ".wsf"]
+    };
+
+    for (const key in extensions) {
+        if (extensions[key].includes(path.extname(file).toLowerCase())) {
+            return key;
+        }
+    }
+    return undefined;
 };
 
 
