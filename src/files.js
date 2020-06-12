@@ -6,7 +6,8 @@ const files = {
         let all = await fs.readdir(root);
         let directories = [];
         let files = [];
-        let media = [];
+        let images = [];
+        let videos = [];
 
         all = all.filter(item => !(/(^|\/)\.[^/.]/g).test(item));
 
@@ -26,10 +27,10 @@ const files = {
             } else if (stats.isFile()) {
                 if (isImage(all[i].name)) {
                     all[i].type = 'image';
-                    media.push(all[i]);
+                    images.push(all[i]);
                 } else if (isVideo(all[i].name))  {
                     all[i].type = 'video';
-                    media.push(all[i]);
+                    videos.push(all[i]);
                 } else {
                     all[i].type = 'file';
                     files.push(all[i]);
@@ -37,23 +38,23 @@ const files = {
             }
         }
 
-        return {directories: directories, media: media, files: files};
+        return {directories: directories, images: images, videos: videos, files: files};
     },
 };
 
 module.exports = files;
 
 
-const isImage = (element) => {
+const isImage = (file) => {
     let extensions = [".png", ".jpeg", ".jpg", ".gif", ".svg"];
 
-    return extensions.includes(path.extname(element).toLowerCase());
+    return extensions.includes(path.extname(file).toLowerCase());
 };
 
-const isVideo = (element) => {
+const isVideo = (file) => {
     let extensions = [".mp4", ".mov"];
 
-    return extensions.includes(path.extname(element).toLowerCase());
+    return extensions.includes(path.extname(file).toLowerCase());
 };
 
 
